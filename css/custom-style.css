@@ -1,0 +1,4 @@
+.fancybox  img{width: 100%;}
+.work-box  img{width: 100%;}
+.thumbnail{display: block;}
+#WorkView .close{position: absolute;top: 0;right: 0;z-index: 99;}

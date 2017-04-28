@@ -1,0 +1,303 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title> isopote with content popup slider </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <meta name="description" content="" /> 
+        <meta name="keywords" content="">
+        <meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE" />
+        <!--        <link rel="icon" type="images/ico" href="images/favicon.ico" /> -->
+
+        <!-- bootstrap css --> 
+        <link href="css/bootstrap.min.css" rel="stylesheet" />
+        <link href="css/bootstrap-theme.min.css" rel="stylesheet" />
+
+        <!-- Font css --> 
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,600,800' rel='stylesheet' type='text/css'>
+
+        <!-- main library script --> 
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+        <!-- bootstrap js -->
+        <script src="js/bootstrap.min.js"></script>
+
+        <!-- customs files -->
+        <link href="css/custom-style.css" rel="stylesheet" />
+
+        <!-- isotope js -->
+        <script src="js/isotope.js"></script>
+        <script src="js/slick.js"></script>
+        <link href="css/slick.css" rel="stylesheet" />
+
+        <script>
+            $(window).load(function(){
+
+                if($('.brick-group').length > 0){                    
+                    /* isotope */
+                    var $grid = $('.brick-group');
+                    var fav = $('.filters .is-active').attr('data-group'); 
+                    var isoOptions = {
+                        itemSelector: '.brick',
+                        filter:fav
+                    }
+                    $grid.isotope(isoOptions);
+                    /* category filter */
+                    $('.filters a').click(function(){
+                        var $this = $(this);
+                        var $buttonGroup = $this.parents('.filters');
+                        var filters = $this.attr('data-group');
+                        $('.filters a').not(this).removeClass('btn-success is-active')
+                        $this.addClass('btn-success is-active')
+                        $grid.isotope({ filter: filters });
+                    });
+                    /* fancybox custom popup */
+                    $('.brick-group .fancybox').click(function(){
+                        var _that = $(this),
+                            cat = _that.attr('data-cat');
+                        _that.find('.work-box').clone().prependTo('#work-preview .modal-carousel');                        
+                        _that.parent('.brick').nextAll('.brick:visible').find('.work-box').clone().appendTo('#work-preview .modal-carousel');                 
+                        _that.parent('.brick').prevAll('.brick:visible').find('.work-box').clone().appendTo('#work-preview .modal-carousel');
+                        $('#work-preview .work-box .hidden-content').removeClass('hidden');
+                        /* popup sldier */
+                        setTimeout(function(){
+                            $('#work-preview .modal-carousel').slick({
+                                slidesToShow: 1,
+                                slidesToScroll: 1,
+                                arrows: true,
+                                fade: true,
+                            });
+                        },200)
+
+                    });
+                    $("#WorkView.modal").on('hide.bs.modal', function(){
+                        setTimeout(function(){
+                            $('#work-preview .modal-carousel').slick('unslick');
+                            $('#work-preview .modal-carousel .work-box').remove()
+                        },300)
+                    });
+                }
+            })
+        </script>
+
+    </head>
+    <body>
+
+        <!-- start --> 
+        <div id="wrapper">
+            <div class="container">
+                <div class="btn-group btn-group-justified text-center filters">
+                    <a href="javascript:;" data-group=".all" class="btn f-tab btn-default btn-success all is-active" >All</a>
+                    <a href="javascript:;" data-group=".c1"  class="btn f-tab btn-default" >Tab- 1</a>
+                    <a href="javascript:;" data-group=".c2" class="btn f-tab btn-default" >Tab- 2</a>
+                    <a href="javascript:;" data-group=".c3" class="btn f-tab btn-default" >Tab- 3</a>
+                </div>
+                <div class="row brick-group">
+                    <div class="col-md-3 col-sm-4 col-xs-6 brick all c1">
+                        <a href="#WorkView" class="fancybox thumbnail" data-toggle="modal" data-cat="c1">
+                            <div class="work-box">
+                                <img src="images/img01.jpg" alt="">
+                                <div class="hidden hidden-content">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading"><strong>Group 1</strong></div>
+                                        <div class="panel-body">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit numquam eveniet atque repellat quibusdam, eius nobis voluptas perspiciatis excepturi esse voluptates maiores repudiandae pariatur obcaecati minima cupiditate ea natus temporibus, blanditiis dolores magni harum consequuntur! Iusto, consectetur placeat veniam quasi.</p>
+                                        </div>
+                                        <div class="panel-footer">Group 3 Footer</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div> 
+                    <div class="col-md-3 col-sm-4 col-xs-6 brick all c2">
+                        <a href="#WorkView" class="fancybox thumbnail" data-toggle="modal" data-cat="c2">
+                            <div class="work-box">
+                                <img src="images/img02.jpg" alt="">
+                                <div class="hidden hidden-content">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading"><strong>Group 2</strong></div>
+                                        <div class="panel-body">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit numquam eveniet atque repellat quibusdam, eius nobis voluptas perspiciatis excepturi esse voluptates maiores repudiandae pariatur obcaecati minima cupiditate ea natus temporibus, blanditiis dolores magni harum consequuntur! Iusto, consectetur placeat veniam quasi.</p>
+                                        </div>
+                                        <div class="panel-footer">Group 3 Footer</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div> 
+                    <div class="col-md-3 col-sm-4 col-xs-6 brick all c3">
+                        <a href="#WorkView" class="fancybox thumbnail" data-toggle="modal" data-cat="c3">
+                            <div class="work-box">
+                                <img src="images/img03.jpg" alt="">
+                                <div class="hidden hidden-content">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading"><strong>Group 3</strong></div>
+                                        <div class="panel-body">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit numquam eveniet atque repellat quibusdam, eius nobis voluptas perspiciatis excepturi esse voluptates maiores repudiandae pariatur obcaecati minima cupiditate ea natus temporibus, blanditiis dolores magni harum consequuntur! Iusto, consectetur placeat veniam quasi.</p>
+                                        </div>
+                                        <div class="panel-footer">Group 3 Footer</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div> 
+                    <div class="col-md-3 col-sm-4 col-xs-6 brick all c1">
+                        <a href="#WorkView" class="fancybox thumbnail" data-toggle="modal" data-cat="c1">
+                            <div class="work-box">
+                                <img src="images/img04.jpg" alt="">
+                                <div class="hidden hidden-content">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading"><strong>Group 4</strong></div>
+                                        <div class="panel-body">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit numquam eveniet atque repellat quibusdam, eius nobis voluptas perspiciatis excepturi esse voluptates maiores repudiandae pariatur obcaecati minima cupiditate ea natus temporibus, blanditiis dolores magni harum consequuntur! Iusto, consectetur placeat veniam quasi.</p>
+                                        </div>
+                                        <div class="panel-footer">Group 3 Footer</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div> 
+                    <div class="col-md-3 col-sm-4 col-xs-6 brick all c2">
+                        <a href="#WorkView" class="fancybox thumbnail" data-toggle="modal" data-cat="c2">
+                            <div class="work-box">
+                                <img src="images/img05.jpg" alt="">
+                                <div class="hidden hidden-content">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading"><strong>Group 5</strong></div>
+                                        <div class="panel-body">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit numquam eveniet atque repellat quibusdam, eius nobis voluptas perspiciatis excepturi esse voluptates maiores repudiandae pariatur obcaecati minima cupiditate ea natus temporibus, blanditiis dolores magni harum consequuntur! Iusto, consectetur placeat veniam quasi.</p>
+                                        </div>
+                                        <div class="panel-footer">Group 3 Footer</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div> 
+                    <div class="col-md-3 col-sm-4 col-xs-6 brick all c3">
+                        <a href="#WorkView" class="fancybox thumbnail" data-toggle="modal" data-cat="c3">
+                            <div class="work-box">
+                                <img src="images/img06.jpg" alt="">
+                                <div class="hidden hidden-content">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading"><strong>Group 6</strong></div>
+                                        <div class="panel-body">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit numquam eveniet atque repellat quibusdam, eius nobis voluptas perspiciatis excepturi esse voluptates maiores repudiandae pariatur obcaecati minima cupiditate ea natus temporibus, blanditiis dolores magni harum consequuntur! Iusto, consectetur placeat veniam quasi.</p>
+                                        </div>
+                                        <div class="panel-footer">Group 3 Footer</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div> 
+                    <div class="col-md-3 col-sm-4 col-xs-6 brick all c1">
+                        <a href="#WorkView" class="fancybox thumbnail" data-toggle="modal" data-cat="c1">
+                            <div class="work-box">
+                                <img src="images/img07.jpg" alt="">
+                                <div class="hidden hidden-content">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading"><strong>Group 1</strong></div>
+                                        <div class="panel-body">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit numquam eveniet atque repellat quibusdam, eius nobis voluptas perspiciatis excepturi esse voluptates maiores repudiandae pariatur obcaecati minima cupiditate ea natus temporibus, blanditiis dolores magni harum consequuntur! Iusto, consectetur placeat veniam quasi.</p>
+                                        </div>
+                                        <div class="panel-footer">Group 3 Footer</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div> 
+                    <div class="col-md-3 col-sm-4 col-xs-6 brick all c2">
+                        <a href="#WorkView" class="fancybox thumbnail" data-toggle="modal" data-cat="c2">
+                            <div class="work-box">
+                                <img src="images/img08.jpg" alt="">
+                                <div class="hidden hidden-content">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading"><strong>Group 2</strong></div>
+                                        <div class="panel-body">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit numquam eveniet atque repellat quibusdam, eius nobis voluptas perspiciatis excepturi esse voluptates maiores repudiandae pariatur obcaecati minima cupiditate ea natus temporibus, blanditiis dolores magni harum consequuntur! Iusto, consectetur placeat veniam quasi.</p>
+                                        </div>
+                                        <div class="panel-footer">Group 3 Footer</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div> 
+                    <div class="col-md-3 col-sm-4 col-xs-6 brick all c3">
+                        <a href="#WorkView" class="fancybox thumbnail" data-toggle="modal" data-cat="c3">
+                            <div class="work-box">
+                                <img src="images/img01.jpg" alt="">
+                                <div class="hidden hidden-content">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading"><strong>Group 3</strong></div>
+                                        <div class="panel-body">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit numquam eveniet atque repellat quibusdam, eius nobis voluptas perspiciatis excepturi esse voluptates maiores repudiandae pariatur obcaecati minima cupiditate ea natus temporibus, blanditiis dolores magni harum consequuntur! Iusto, consectetur placeat veniam quasi.</p>
+                                        </div>
+                                        <div class="panel-footer">Group 3 Footer</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div> 
+                    <div class="col-md-3 col-sm-4 col-xs-6 brick all c1">
+                        <a href="#WorkView" class="fancybox thumbnail" data-toggle="modal" data-cat="c1">
+                            <div class="work-box">
+                                <img src="images/img02.jpg" alt="">
+                                <div class="hidden hidden-content">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading"><strong>Group 4</strong></div>
+                                        <div class="panel-body">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit numquam eveniet atque repellat quibusdam, eius nobis voluptas perspiciatis excepturi esse voluptates maiores repudiandae pariatur obcaecati minima cupiditate ea natus temporibus, blanditiis dolores magni harum consequuntur! Iusto, consectetur placeat veniam quasi.</p>
+                                        </div>
+                                        <div class="panel-footer">Group 3 Footer</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div> 
+                    <div class="col-md-3 col-sm-4 col-xs-6 brick all c2">
+                        <a href="#WorkView" class="fancybox thumbnail" data-toggle="modal" data-cat="c2">
+                            <div class="work-box">
+                                <img src="images/img03.jpg" alt="">
+                                <div class="hidden hidden-content">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading"><strong>Group 5</strong></div>
+                                        <div class="panel-body">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit numquam eveniet atque repellat quibusdam, eius nobis voluptas perspiciatis excepturi esse voluptates maiores repudiandae pariatur obcaecati minima cupiditate ea natus temporibus, blanditiis dolores magni harum consequuntur! Iusto, consectetur placeat veniam quasi.</p>
+                                        </div>
+                                        <div class="panel-footer">Group 3 Footer</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div> 
+                    <div class="col-md-3 col-sm-4 col-xs-6 brick all c3">
+                        <a href="#WorkView" class="fancybox thumbnail" data-toggle="modal" data-cat="c3">
+                            <div class="work-box">
+                                <img src="images/img04.jpg" alt="">
+                                <div class="hidden hidden-content">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading"><strong>Group 6</strong></div>
+                                        <div class="panel-body">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit numquam eveniet atque repellat quibusdam, eius nobis voluptas perspiciatis excepturi esse voluptates maiores repudiandae pariatur obcaecati minima cupiditate ea natus temporibus, blanditiis dolores magni harum consequuntur! Iusto, consectetur placeat veniam quasi.</p>
+                                        </div>
+                                        <div class="panel-footer">Group 3 Footer</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>                   
+                </div>
+                <!-- video-modal popup -->
+                <div id="WorkView" class="modal fade">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="glyphicon glyphicon-remove" ></i></button>
+                            <div class="modal-body" id="work-preview">
+                                <div class="modal-carousel"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>      
+        </div>
+    </body>
+</html>
